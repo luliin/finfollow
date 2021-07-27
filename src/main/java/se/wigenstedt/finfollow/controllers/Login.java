@@ -86,9 +86,21 @@ public class Login {
     }
 
     @GetMapping("status")
-    public ResponseEntity<String> getStatus(@CookieValue(value = "AZABANKIDTRANSID", defaultValue = "") String sessionId, HttpServletResponse response) throws JSONException {
-           var result = webClientService.getStatus(sessionId);
-           if(result.size()==1) {
+    public ResponseEntity<String> getStatus(@CookieValue(value = "AZABANKIDTRANSID", defaultValue = "") String sessionId, HttpServletResponse response)  {
+        List<String> result = null;
+        try {
+            result = webClientService.getStatus(sessionId);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("{\"statusCode\": 500,\"message\": \"Access Denied\",\n" +
+                    "  \"time\": \"2021-07-27T16:22:12.443258487\",\n" +
+                    "  \"errors\": [\n" +
+                    "    \n" +
+                    "  ],\n" +
+                    "  \"additional\": {\n" +
+                    "    \n" +
+                    "  }}");
+        }
+        if(result.size()==1) {
                return ResponseEntity.ok(result.get(0));
            } else {
 

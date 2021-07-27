@@ -49,7 +49,7 @@ public class WebClientService {
                 .block();
     }
 
-    public List<String> getStatus(String id) throws JSONException {
+    public List<String> getStatus(String id) throws JSONException, Exception {
 
         String login = "";
         String[] split = null;
