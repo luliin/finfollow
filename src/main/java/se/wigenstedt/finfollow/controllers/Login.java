@@ -5,6 +5,7 @@ import io.netty.handler.codec.http.HttpMessage;
 import lombok.RequiredArgsConstructor;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @CrossOrigin
 @RequestMapping("login/bankid")
+@Slf4j
 public class Login {
 
 
@@ -81,6 +83,8 @@ public class Login {
 
                HttpHeaders headers = (HttpHeaders) result.get(1);
                HttpHeaders headers1 = (HttpHeaders) result.get(2);
+               log.info(">><< Header: " + headers);
+               log.info(">><< Header2: " + headers1);
                return ResponseEntity.ok().headers(headers).headers(headers1).body((String)result.get(0));
            }
 

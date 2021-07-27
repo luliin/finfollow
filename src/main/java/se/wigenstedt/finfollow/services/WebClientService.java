@@ -104,6 +104,7 @@ public class WebClientService {
             return List.of(response);
         } else {
             if(headers!= null && headers2 != null){
+
                 return List.of(login, headers, headers2);
             } else return List.of(login);
         }
