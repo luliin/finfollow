@@ -91,7 +91,7 @@ public class Login {
                        .httpOnly(true)
                        .path("/")
                        .build();
-               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers).headers(headers1).body((String)result.get(0));
+               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers1).body((String)result.get(0));
            }
 
 
