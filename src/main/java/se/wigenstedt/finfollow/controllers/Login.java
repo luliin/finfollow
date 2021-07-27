@@ -88,7 +88,7 @@ public class Login {
                String csid = (String) result.get(3);
 
                ResponseCookie cookie = ResponseCookie.from("csid", csid)
-                       .sameSite("none")
+                       .secure(true)
                        .build();
                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers1).body((String)result.get(0));
            }
