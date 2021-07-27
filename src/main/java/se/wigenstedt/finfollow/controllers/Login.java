@@ -78,12 +78,12 @@ public class Login {
     public ResponseEntity<String> getStatus(@CookieValue(value = "AZABANKIDTRANSID", defaultValue = "") String sessionId, HttpServletResponse response) throws JSONException {
            var result = webClientService.getStatus(sessionId);
            if(result.size()==1) {
-               return ResponseEntity.ok((String)result.get(0));
+               return ResponseEntity.ok(result.get(0));
            } else {
 
 
-               String csid = (String) result.get(1);
-               String azapersistance = (String) result.get(2);
+               String csid = result.get(1);
+               String azapersistance = result.get(2);
 
                ResponseCookie cookie = ResponseCookie.from("csid", csid)
                        .path("/")
@@ -93,8 +93,7 @@ public class Login {
                        .path("/")
                        .httpOnly(true)
                        .build();
-               log.info(">>>>>>>>> cookie: "+ cookie);
-               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).header(HttpHeaders.SET_COOKIE, cookie2.toString()).body((String)result.get(0));
+               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).header(HttpHeaders.SET_COOKIE, cookie2.toString()).body(result.get(0));
            }
 
 

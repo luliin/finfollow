@@ -49,7 +49,7 @@ public class WebClientService {
                 .block();
     }
 
-    public List<Object> getStatus(String id) throws JSONException {
+    public List<String> getStatus(String id) throws JSONException {
 
         String login = "";
         String[] split = null;
@@ -94,21 +94,11 @@ public class WebClientService {
                     .cookie("AZABANKIDTRANSID",id)
                     .retrieve();
 
-
+            //På heroku ville inte kakorna sättas direkt fårn headers.
+            // Jag parsear därför ut de värden jag vill ha och sätter de explicit i controllern
             JSONObject cookie = new JSONObject(headers);
             String value = cookie.get("Set-Cookie").toString();
-
-
-
-
-            System.out.println(cookie);
-            System.out.println(value);
-
             split = value.split("[=;]");
-            System.out.println(split[1]);
-
-
-
 
             headers2 = session.toBodilessEntity()
                     .map(HttpEntity::getHeaders)
@@ -116,7 +106,7 @@ public class WebClientService {
             JSONObject cookie2 = new JSONObject(headers2);
             String value2 = cookie2.get("Set-Cookie").toString();
             split2 = value2.split("[=;]");
-            System.out.println(split2[1]);
+
 
         }
         assert login != null;
