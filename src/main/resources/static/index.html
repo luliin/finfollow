@@ -13,10 +13,11 @@
 
     <div class="container">
         <h4 class="mt-5">Följande endpoints finns tillgängliga:</h4>
-        <ul class="list-unstyled" class="text-light mt-5">
-            <li><a href="https://finfollow-test.herokuapp.com/login/bankid" class="text-light">login/bankid</a></li>
-            <li><a href="https://finfollow-test.herokuapp.com/login/bankid/status" class="text-light">login/bankid/status</a></li>
-            <li><a href="https://finfollow-test.herokuapp.com/account/overview" class="text-light">account/overview</a></li>
+        <ul class="list-unstyled text-light mt-5">
+            <li>
+            <div class="container mt-5"><h6><a href="https://finfollow-test.herokuapp.com/login/bankid" class="text-light">login/bankid</a> - Genererar en QR-kod. Scannas den kan man logga in på Avanza via Mobilt BankId.</h6></div></li>
+            <li><h6><a href="https://finfollow-test.herokuapp.com/login/bankid/status" class="text-light">login/bankid/status</a> - Visar status för inloggningen. Vid completed visas istället inloggnings-sessionen.</h6></li>
+            <li><h6><a href="https://finfollow-test.herokuapp.com/account/overview" class="text-light">account/overview</a> - Om inloggad visas information om alla ens konton på Avanza. Annars visas ett felmeddelande.</h6></li>
 
         </ul>
     </div>

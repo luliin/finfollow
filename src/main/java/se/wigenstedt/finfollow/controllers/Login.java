@@ -105,7 +105,6 @@ public class Login {
                return ResponseEntity.ok(result.get(0));
            } else {
 
-
                String csid = result.get(1);
                String azapersistance = result.get(2);
 
