@@ -81,17 +81,20 @@ public class Login {
                return ResponseEntity.ok((String)result.get(0));
            } else {
 
-               HttpHeaders headers = (HttpHeaders) result.get(1);
-               HttpHeaders headers1 = (HttpHeaders) result.get(2);
-               log.info(">><< Header: " + headers);
-               log.info(">><< Header2: " + headers1);
-               String csid = (String) result.get(3);
+
+               String csid = (String) result.get(1);
+               String azapersistance = (String) result.get(2);
 
                ResponseCookie cookie = ResponseCookie.from("csid", csid)
-                       .secure(true)
+                       .path("/")
+                       .httpOnly(true)
+                       .build();
+               ResponseCookie cookie2 = ResponseCookie.from("AZAPERSISTANCE", azapersistance)
+                       .path("/")
+                       .httpOnly(true)
                        .build();
                log.info(">>>>>>>>> cookie: "+ cookie);
-               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers1).body((String)result.get(0));
+               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).header(HttpHeaders.SET_COOKIE, cookie2.toString()).body((String)result.get(0));
            }
 
 

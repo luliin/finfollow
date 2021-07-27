@@ -53,6 +53,7 @@ public class WebClientService {
 
         String login = "";
         String[] split = null;
+        String[] split2 = null;
 
                 //Dessa headers kommer bara initieras om state är "COMPLETE".
         HttpHeaders headers = null;
@@ -98,8 +99,11 @@ public class WebClientService {
             String value = cookie.get("Set-Cookie").toString();
 
 
+
+
             System.out.println(cookie);
             System.out.println(value);
+
             split = value.split("[=;]");
             System.out.println(split[1]);
 
@@ -109,16 +113,20 @@ public class WebClientService {
             headers2 = session.toBodilessEntity()
                     .map(HttpEntity::getHeaders)
                     .block();
-            
+            JSONObject cookie2 = new JSONObject(headers2);
+            String value2 = cookie2.get("Set-Cookie").toString();
+            split2 = value2.split("[=;]");
+            System.out.println(split2[1]);
+
         }
         assert login != null;
         if(login.isEmpty()) {
             assert response != null;
             return List.of(response);
         } else {
-            if(headers!= null){
+            if(split[0] != null){
 
-                return List.of(login, headers, headers2, split[1]);
+                return List.of(login, split[1], split2[1]);
             } else return List.of(login);
         }
     }
