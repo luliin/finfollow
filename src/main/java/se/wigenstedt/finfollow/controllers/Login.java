@@ -90,6 +90,7 @@ public class Login {
                ResponseCookie cookie = ResponseCookie.from("csid", csid)
                        .secure(true)
                        .build();
+               log.info(">>>>>>>>> cookie: "+ cookie);
                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers1).body((String)result.get(0));
            }
 
