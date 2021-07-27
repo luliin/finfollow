@@ -39,7 +39,7 @@ public class WebClientService {
                 .block();
     }
 
-    public String accountOverview(String persistance, String csid, String transId) {
+    public String accountOverview(String persistance, String csid, String transId) throws Exception {
         return webClient.get().uri(ACCOUNT_OVERVIEW)
                 .cookie("AZAPERSISTANCE", persistance)
                 .cookie("csid",csid)

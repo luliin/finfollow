@@ -66,12 +66,23 @@ public class Login {
         String output = list.get(list.size() - 1);
         String link = list.get(1);
 
+        Cookie cookie3 = new Cookie("csid", null);
+        cookie3.setMaxAge(0);
+
+
+
         ResponseCookie cookie = ResponseCookie.from("AZABANKIDTRANSID", link)
                 .httpOnly(true)
                 .path("/")
                 .build();
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(QrGenerator.generateQR("bankid:///?autostarttoken=" + output + "&redirect=null" ));
+        ResponseCookie cookie2 = ResponseCookie.from("csid", null)
+                .maxAge(0)
+                .path("/")
+                .httpOnly(true)
+                .build();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).header(HttpHeaders.SET_COOKIE, cookie2.toString()).body(QrGenerator.generateQR("bankid:///?autostarttoken=" + output + "&redirect=null" ));
     }
 
     @GetMapping("status")
