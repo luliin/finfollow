@@ -52,8 +52,9 @@ public class WebClientService {
     public List<Object> getStatus(String id) throws JSONException {
 
         String login = "";
-        
-        //Dessa headers kommer bara initieras om state är "COMPLETE".
+        String[] split = null;
+
+                //Dessa headers kommer bara initieras om state är "COMPLETE".
         HttpHeaders headers = null;
         HttpHeaders headers2 = null;
         String response = webClient.get().uri(STATUS)
@@ -91,7 +92,19 @@ public class WebClientService {
             WebClient.ResponseSpec session = webClient.get().uri("https://www.avanza.se/_cqbe/authentication/session/")
                     .cookie("AZABANKIDTRANSID",id)
                     .retrieve();
-            
+
+
+            JSONObject cookie = new JSONObject(headers);
+            String value = cookie.get("Set-Cookie").toString();
+
+
+            System.out.println(cookie);
+            System.out.println(value);
+            split = value.split("[=;]");
+            System.out.println(split[1]);
+
+
+
 
             headers2 = session.toBodilessEntity()
                     .map(HttpEntity::getHeaders)
@@ -103,9 +116,9 @@ public class WebClientService {
             assert response != null;
             return List.of(response);
         } else {
-            if(headers!= null && headers2 != null){
+            if(headers!= null){
 
-                return List.of(login, headers, headers2);
+                return List.of(login, headers, headers2, split[1]);
             } else return List.of(login);
         }
     }

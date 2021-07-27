@@ -85,7 +85,13 @@ public class Login {
                HttpHeaders headers1 = (HttpHeaders) result.get(2);
                log.info(">><< Header: " + headers);
                log.info(">><< Header2: " + headers1);
-               return ResponseEntity.ok().headers(headers).headers(headers1).body((String)result.get(0));
+               String csid = (String) result.get(3);
+
+               ResponseCookie cookie = ResponseCookie.from("csid", csid)
+                       .httpOnly(true)
+                       .path("/")
+                       .build();
+               return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).headers(headers).headers(headers1).body((String)result.get(0));
            }
 
 
