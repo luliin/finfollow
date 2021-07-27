@@ -27,6 +27,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,7 +93,7 @@ public class Login {
             result = webClientService.getStatus(sessionId);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("{\"statusCode\": 500,\"message\": \"Access Denied\",\n" +
-                    "  \"time\": \"2021-07-27T16:22:12.443258487\",\n" +
+                    "  \"time\": \""+ LocalDateTime.now() +"\",\n" +
                     "  \"errors\": [\n" +
                     "    \n" +
                     "  ],\n" +
