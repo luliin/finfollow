@@ -124,6 +124,19 @@ public class Login {
 
     }
 
+    @PostMapping(value = "nordnet", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<BufferedImage> getNordnetBankid(HttpServletResponse response) throws Exception {
+        String json = webClientService.nordnetLogin();
+        JSONObject responseObject = new JSONObject(json);
+        ResponseCookie cookie = ResponseCookie.from("order_ref", responseObject.getString("order_ref"))
+                .path("/")
+                .httpOnly(true)
+                .build();
+
+        String output = responseObject.getString("auto_start_token");
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(QrGenerator.generateQR("bankid:///?autostarttoken=" + output + "&redirect=null" ));
+    }
+
 
 
     @Bean
