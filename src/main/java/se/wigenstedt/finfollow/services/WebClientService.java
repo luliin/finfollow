@@ -120,4 +120,28 @@ public class WebClientService {
             } else return List.of(login);
         }
     }
+
+    public String nordnetLogin() throws JSONException {
+        String session = webClient.post().uri(NORDNET_SESSION)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        System.out.println("Session = " + session);
+        JSONObject sessionObject = new JSONObject(session);
+
+        String sessionId = sessionObject.getString("session_id");
+        System.out.println("Session id = "+sessionId);
+
+        String autostart = webClient.post().uri(NORDNET_AUTOSTART_TOKEN)
+                .header("session_id", sessionId)
+                .cookie("NOW", sessionId)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        System.out.println("Autostart = " + autostart);
+
+        return autostart;
+    }
 }
